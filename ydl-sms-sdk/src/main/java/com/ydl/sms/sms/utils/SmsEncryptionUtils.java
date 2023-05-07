@@ -33,5 +33,7 @@ public class SmsEncryptionUtils {
         System.arraycopy(accessKeySecrets, 0, md5Bytes, cakss.length, accessKeySecrets.length);
 
         return Md5Utils.getMD5(Md5Utils.getMD5(md5Bytes).getBytes());
+
+
     }
 }

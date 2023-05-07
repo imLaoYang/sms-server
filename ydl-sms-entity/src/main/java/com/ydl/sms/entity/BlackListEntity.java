@@ -27,4 +27,6 @@ public class BlackListEntity extends BaseEntity {
     @ApiModelProperty("备注")
     private String remark;
 
+
+
 }
