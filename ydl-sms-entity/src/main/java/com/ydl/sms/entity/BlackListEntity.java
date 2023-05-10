@@ -13,7 +13,6 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @EqualsAndHashCode(callSuper = false)
 @TableName("black_list")
 @ApiModel(description = "黑名单")

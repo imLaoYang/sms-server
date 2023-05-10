@@ -24,6 +24,14 @@ public class SignatureServiceImpl extends ServiceImpl<SignatureMapper, Signature
     SignatureEntity entity = baseMapper.selectOne(wrapper);
     if (entity != null){
 
+      String code = entity.getCode();
+      if ( code.startsWith("DXQM")) {
+        int num = Integer.parseInt(code.split("_")[1]) + 1;
+
+        // 生成code模板 DXQM_000000000
+        return "DXQM_" + String.format("%09d", num);
+      }
+
     }
 
 
@@ -39,4 +47,5 @@ public class SignatureServiceImpl extends ServiceImpl<SignatureMapper, Signature
 
 
   }
+
 }
