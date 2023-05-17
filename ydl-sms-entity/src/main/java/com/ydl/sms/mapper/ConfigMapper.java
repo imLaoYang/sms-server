@@ -20,4 +20,5 @@ public interface ConfigMapper extends BaseMapper<ConfigEntity> {
      * @return 配置集合
      */
     List<ConfigEntity> findByTemplateSignature(Map params);
+    List<ConfigEntity> updateLevel(List<String> params);
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class MyListener implements MessageListener {
 
-    //接受到redis消息时，干的事儿
+    // 接受到redis消息时，干的事儿
     @Override
     public void onMessage(Message message, byte[] bytes) {
         log.info("接收到了消息：{}",message);

@@ -32,4 +32,8 @@
         order by c.level asc
     </select>
 
+    <select id="updateLevel" parameterType="java.util.List" resultMap="configMap">
+
+    </select>
+
 </mapper>

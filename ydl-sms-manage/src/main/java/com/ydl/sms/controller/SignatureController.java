@@ -14,14 +14,16 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 短信服务-签名管理
  */
 @RestController
 @RequestMapping("signature")
-@Api(tags = "签名表")
+@Api(tags = "签名管理")
 public class SignatureController extends BaseController {
 
   @Autowired
@@ -29,8 +31,8 @@ public class SignatureController extends BaseController {
 
   // 分页
   @ApiOperation("分页")
-  @PostMapping("page")
-  public R<Page<SignatureEntity>> page(@RequestBody SignatureDTO signatureDTO) {
+  @GetMapping("page")
+  public R<Page<SignatureEntity>> page(SignatureDTO signatureDTO) {
     Page<SignatureEntity> page = getPage();
     LbqWrapper<SignatureEntity> wrapper = Wraps.lbQ();
     wrapper.like(SignatureEntity::getName, signatureDTO.getName())
@@ -42,50 +44,54 @@ public class SignatureController extends BaseController {
     return R.success(page);
   }
 
-  // 获得所有数据
-//  @GetMapping("list")
-//  @ApiOperation("获得所有数据")
-//  public R list() {
-//    signatureService.list();
-//    return R.success();
-//  }
 
-  // 通过id查询数据
-//  @GetMapping("{id}")
-//  @ApiOperation("获得数据")
-//  public R<SignatureEntity> get(@PathVariable("id") String id) {
-//
-//    SignatureEntity entity = signatureService.getById(id);
-//    return R.success(entity);
-//
-//  }
+  // 通道管理中的关联签名页面
+  @GetMapping("customPage")
+  @ApiOperation("关联签名页面")
+  public R customPage(SignatureDTO signatureDTO) {
+    Page<SignatureDTO> page = getPage();
+    Map<String,String> params = new HashMap<String,String>();
+    params.put("name",signatureDTO.getName());
+    params.put("code", signatureDTO.getCode());
+    params.put("configId", signatureDTO.getConfigId());
+    // 连表查
+    signatureService.customPage(page,params);
 
+    return R.success(page);
+  }
+
+
+  @GetMapping("{id}")
+  @ApiOperation("通过id获取数据")
+  public R<SignatureEntity> id(@PathVariable("id") String id){
+    SignatureEntity entity = signatureService.getById(id);
+    return R.success(entity);
+  }
 
   // 添加签名
   @ApiOperation("添加签名")
   @PostMapping()
   @DefaultParams  // 用AOP统一添加 创建者，创建时间
-  public R addSignature(@RequestBody SignatureEntity entity) {
+  public R<String> addSignature(@RequestBody SignatureEntity entity) {
     // 判断签名是否存在
     String name = entity.getName();
     if (signatureService.getByName(name) != null) {
       return R.fail("签名已存在");
     }
-
     // 自动生成code签名编码
     String code = signatureService.getCode();
     entity.setCode(code);
     entity.setContent(entity.getName());
-
     signatureService.save(entity);
-    return R.success();
+
+    return R.success("添加成功");
   }
 
   // 修改签名
   @ApiOperation("修改签名")
   @PutMapping
   @DefaultParams  // 用AOP统一添加 修改者，修改时间
-  public R editSignature(@RequestBody SignatureDTO signatureDTO) {
+  public R<String> editSignature(@RequestBody SignatureDTO signatureDTO) {
     // 判断名称是否已经存在
     String name = signatureDTO.getName();
     SignatureEntity entity = signatureService.getByName(name);
@@ -102,11 +108,12 @@ public class SignatureController extends BaseController {
   // 删除签名
   @ApiOperation("删除签名")
   @DeleteMapping
-  public R deleteSignature(@RequestBody List<String> ids) {
-    // 判断是否被使用，查询数据库
-     signatureService.removeByIds(ids);
+  public R<String> deleteSignature(@RequestBody List<String> ids) {
+    // 判断是否被使用，查询发送日志表
 
-     // 返回查出的数组
+    signatureService.removeByIds(ids);
+
+    // 返回查出的数组
     return R.success("删除成功");
   }
 
