@@ -104,7 +104,6 @@ public class TemplateController extends BaseController {
   @ApiOperation("删除模板")
   public R<String> deleteTemplate(@RequestBody List<String> ids) {
     // 判断是否被使用，查询发送日志表
-
     templateService.removeByIds(ids);
 
     return R.success("删除成功");
