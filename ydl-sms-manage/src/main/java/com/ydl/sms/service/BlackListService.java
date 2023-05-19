@@ -1,7 +1,12 @@
 package com.ydl.sms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ydl.base.R;
 import com.ydl.sms.entity.BlackListEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface BlackListService extends IService<BlackListEntity> {
+
+  R upload(MultipartFile file);
+
 }
