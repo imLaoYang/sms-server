@@ -5,11 +5,8 @@ import com.ydl.base.R;
 import com.ydl.sms.entity.BlackListEntity;
 import org.springframework.web.multipart.MultipartFile;
 
-/**
- * 黑名单
- *
- */
 public interface BlackListService extends IService<BlackListEntity> {
 
-    R<Boolean> upload(MultipartFile file);
+  R upload(MultipartFile file);
+
 }

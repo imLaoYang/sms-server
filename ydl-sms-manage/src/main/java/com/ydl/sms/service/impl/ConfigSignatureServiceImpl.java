@@ -13,43 +13,52 @@ import org.springframework.util.CollectionUtils;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * 配置—签名表
- */
 @Service
 @Slf4j
 public class ConfigSignatureServiceImpl extends ServiceImpl<ConfigSignatureMapper, ConfigSignatureEntity> implements ConfigSignatureService {
 
-    @Override
-    public void merge(ConfigDTO entity) {
-        if (!CollectionUtils.isEmpty(entity.getSignatureIds())) {
-            LambdaQueryWrapper<ConfigSignatureEntity> wrapper = new LambdaQueryWrapper<>();
-            wrapper.eq(ConfigSignatureEntity::getConfigId, entity.getId());
+  /**
+   * 合并操作，增删都在这个方法里面判断
+   */
+  @Override
+  public void merge(ConfigDTO configDTO) {
+    if (!CollectionUtils.isEmpty(configDTO.getSignatureIds())) {
+      LambdaQueryWrapper<ConfigSignatureEntity> wrapper = new LambdaQueryWrapper<>();
+      wrapper.eq(ConfigSignatureEntity::getConfigId, configDTO.getId());
+      List<ConfigSignatureEntity> configSignatureEntityList = this.list(wrapper);
+      // 把查出的数据id拿出来，封装成id集合
+      List<String> CSidList = configSignatureEntityList.stream().map(i -> i.getSignatureId())
+              .collect(Collectors.toList());
+      // 前端传进来的Signature的id集合
+      List<String> signatureIds = configDTO.getSignatureIds();
+      // 过滤添加的id集合
+      List<String> addIdList = signatureIds.stream().filter(i -> !CSidList.contains(i)).collect(Collectors.toList());
+      // 过滤删除的id集合
+      List<String> deleteList = CSidList.stream().filter(i -> !configDTO.getId().contains(i)).collect(Collectors.toList());
 
-            // 数据库中的关联项
-            List<ConfigSignatureEntity> dbList = this.list(wrapper);
-            List<String> dbSignatureIds = dbList.stream().map(item -> item.getSignatureId()).collect(Collectors.toList());
-            // 删除
-            List<String> deleteIds = dbSignatureIds.stream().filter(item -> !entity.getSignatureIds().contains(item)).collect(Collectors.toList());
-            // 新增
-            List<String> addIds = entity.getSignatureIds().stream().filter(item -> !dbSignatureIds.contains(item)).collect(Collectors.toList());
 
+      // 判断是添加还删除操作
+      if (!CollectionUtils.isEmpty(deleteList)){
+        this.removeByIds(deleteList);
+        log.info("删除成功 configId:{},deleteId:{}", configDTO.getId(), deleteList);
+      }else {
+        log.info("删除失败");
+      }
 
-            if (!CollectionUtils.isEmpty(deleteIds)) {
-                wrapper.in(ConfigSignatureEntity::getSignatureId, deleteIds);
-                this.remove(wrapper);
-                log.info("删除成功 config:{} deleteIds:{}", entity.getId(), deleteIds);
-            }
-            if (!CollectionUtils.isEmpty(addIds)) {
-                List<ConfigSignatureEntity> configSignatureEntities = addIds.stream().map(item -> {
-                    ConfigSignatureEntity configSignatureEntity = new ConfigSignatureEntity();
-                    configSignatureEntity.setConfigId(entity.getId());
-                    configSignatureEntity.setSignatureId(item);
-                    return configSignatureEntity;
-                }).collect(Collectors.toList());
-                this.saveBatch(configSignatureEntities);
-                log.info("新增成功 config:{} addIds:{}", entity.getId(), addIds);
-            }
-        }
+      if (!CollectionUtils.isEmpty(addIdList)) {
+        // 把configDto的数据封装进List进行批量增删
+        List<ConfigSignatureEntity> addEntity = addIdList.stream().map(i -> {
+          ConfigSignatureEntity configSignatureEntity = new ConfigSignatureEntity();
+          configSignatureEntity.setConfigId(configDTO.getId());
+          configSignatureEntity.setSignatureId(i);
+          return configSignatureEntity;
+        }).collect(Collectors.toList());
+        this.saveBatch(addEntity);
+        log.info("添加成功 configId:{},addIds:{}", configDTO.getId(), addIdList);
+      }{
+        log.info("添加失败");
+      }
+
     }
+  }
 }

@@ -13,45 +13,47 @@ import org.springframework.util.CollectionUtils;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * 配置—模板表
- *
- *
- */
 @Service
 @Slf4j
 public class ConfigTemplateServiceImpl extends ServiceImpl<ConfigTemplateMapper, ConfigTemplateEntity> implements ConfigTemplateService {
+  @Override
+  public void merge(ConfigDTO configDTO) {
+    if (!CollectionUtils.isEmpty(configDTO.getTemplateIds())) {
+      LambdaQueryWrapper<ConfigTemplateEntity> wrapper = new LambdaQueryWrapper<>();
+      wrapper.eq(ConfigTemplateEntity::getConfigId, configDTO.getId());
+      // 去config_template表查询数据，封装id成List
+      List<ConfigTemplateEntity> entityList = this.list(wrapper);
+      List<String> idList = entityList.stream().map(i -> i.getConfigId()).collect(Collectors.toList());
+      // 前端传来的templateId集合
+      List<String> templateIds = configDTO.getTemplateIds();
+      // 删除id集合
+      List<String> deleIdList = idList.stream().filter(i -> !templateIds.contains(i)).collect(Collectors.toList());
+      // 添加id集合
+      List<String> addIdList = templateIds.stream().filter(i -> !idList.contains(i)).collect(Collectors.toList());
+      // 判断是添加还是删除操作
+      if (!CollectionUtils.isEmpty(deleIdList)){
+          this.removeByIds(deleIdList);
+          log.info("删除成功 configId：{} templateIds:{}",configDTO.getId(),deleIdList);
+      }else {
+          log.info("删除失败");
+      }
 
-    @Override
-    public void merge(ConfigDTO entity) {
-        if (!CollectionUtils.isEmpty(entity.getTemplateIds())) {
-            LambdaQueryWrapper<ConfigTemplateEntity> wrapper = new LambdaQueryWrapper<>();
-            wrapper.eq(ConfigTemplateEntity::getConfigId, entity.getId());
 
-            // 数据库中的关联项
-            List<ConfigTemplateEntity> dbList = this.list(wrapper);
-            List<String> dbTemplateIds = dbList.stream().map(item -> item.getTemplateId()).collect(Collectors.toList());
-            // 删除
-            List<String> deleteIds = dbTemplateIds.stream().filter(item -> !entity.getTemplateIds().contains(item)).collect(Collectors.toList());
-            // 新增
-            List<String> addIds = entity.getTemplateIds().stream().filter(item -> !dbTemplateIds.contains(item)).collect(Collectors.toList());
+      if (!CollectionUtils.isEmpty(addIdList)){
+        List<ConfigTemplateEntity> addEntity = addIdList.stream().map(i -> {
+          ConfigTemplateEntity configTemplateEntity = new ConfigTemplateEntity();
+          configTemplateEntity.setConfigId(configDTO.getId());
+          configTemplateEntity.setTemplateId(i);
+          return configTemplateEntity;
+        }).collect(Collectors.toList());
+        this.saveBatch(addEntity);
+        log.info("添加成功 configId：{} templateIds:{}",configDTO.getId(),addIdList);
+      }else {
+        log.info("添加失败----可能id已经存在---configId：{} templateIds:{}",configDTO.getId(),addIdList);
+      }
 
-
-            if (!CollectionUtils.isEmpty(deleteIds)) {
-                wrapper.in(ConfigTemplateEntity::getTemplateId, deleteIds);
-                this.remove(wrapper);
-                log.info("删除成功 config:{} deleteIds:{}", entity.getId(), deleteIds);
-            }
-            if (!CollectionUtils.isEmpty(addIds)) {
-                List<ConfigTemplateEntity> configTemplateEntities = addIds.stream().map(item -> {
-                    ConfigTemplateEntity configTemplateEntity = new ConfigTemplateEntity();
-                    configTemplateEntity.setConfigId(entity.getId());
-                    configTemplateEntity.setTemplateId(item);
-                    return configTemplateEntity;
-                }).collect(Collectors.toList());
-                this.saveBatch(configTemplateEntities);
-                log.info("新增成功 config:{} addIds:{}", entity.getId(), addIds);
-            }
-        }
     }
+
+
+  }
 }

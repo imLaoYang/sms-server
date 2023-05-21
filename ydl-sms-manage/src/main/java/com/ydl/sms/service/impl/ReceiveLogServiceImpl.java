@@ -13,28 +13,24 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 
-/**
- * 接收日志表
- *
- */
 @Service
 public class ReceiveLogServiceImpl extends ServiceImpl<ReceiveLogMapper, ReceiveLogEntity> implements ReceiveLogService {
+  @Override
+  public Page<ReceiveLogVO> pageLog(Page<ReceiveLogVO> page, Map<String, Object> map) {
+    IPage<ReceiveLogVO> iPage = baseMapper.selectLogPage(page, map);
+    page.setRecords(iPage.getRecords());
+    return page;
+  }
 
-    @Override
-    public Page<ReceiveLogVO> pageLog(Page<ReceiveLogVO> page, Map<String, Object> params) {
-        IPage<ReceiveLogVO> receiveLogVOPage = this.baseMapper.selectLogPage(page, params);
-        page.setRecords(receiveLogVOPage.getRecords());
-        return page;
-    }
+  @Override
+  public List<StatisticsCountVO> top10(Map<String, Object> params) {
+    List<StatisticsCountVO> statisticsCountVO = baseMapper.top10(params);
+    return statisticsCountVO;
+  }
 
-    @Override
-    public List<StatisticsCountVO> top10(Map params) {
-        return this.baseMapper.top10(params);
-    }
-
-    @Override
-    public List<StatisticsCountVO> trend(Map params) {
-        return this.baseMapper.trend(params);
-    }
-
+  @Override
+  public List<StatisticsCountVO> trend(Map<String,Object> params) {
+    List<StatisticsCountVO> statisticsCountVO = baseMapper.trend(params);
+    return statisticsCountVO;
+  }
 }

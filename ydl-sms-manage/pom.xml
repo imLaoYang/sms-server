@@ -159,16 +159,6 @@
             <artifactId>commons-pool2</artifactId>
         </dependency>
 
-
-<!--        &lt;!&ndash; 开启热部署 &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-devtools</artifactId>-->
-<!--            &lt;!&ndash; 设置为true 热部署才有效 &ndash;&gt;-->
-<!--            <optional>true</optional>-->
-<!--            <scope>true</scope>-->
-<!--        </dependency>-->
-
     </dependencies>
 
     <build>
@@ -179,20 +169,6 @@
                 <filtering>true</filtering>
             </resource>
         </resources>
-
-<!--        <plugins>-->
-<!--            &lt;!&ndash;  配置插件，让热部署依赖spring-boot-devtools生效 &ndash;&gt;-->
-<!--            <plugin>-->
-<!--                <groupId>org.springframework.boot</groupId>-->
-<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--                <configuration>-->
-<!--                    &lt;!&ndash; 设置为true，让热部署devtools生效 &ndash;&gt;-->
-<!--                    <fork>true</fork>-->
-<!--                    <addResources>true</addResources>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
-
-<!--        </plugins>-->
     </build>
 
 

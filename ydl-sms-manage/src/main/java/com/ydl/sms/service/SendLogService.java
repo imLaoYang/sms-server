@@ -11,24 +11,22 @@ import com.ydl.sms.vo.StatisticsCountVO;
 import java.util.List;
 import java.util.Map;
 
-/**
- * 日志表
- *
- *
- */
 public interface SendLogService extends IService<SendLogEntity> {
 
-    Page<SendLogVO> pageLog(Page<SendLogVO> page, Map<String, Object> params);
+  Page<SendLogVO> pageLog(Page<SendLogVO> page, Map<String,Object> map);
+  Page<SendLogPageVO> sendLogpage(Page<SendLogPageVO> page, SendLogPageVO sendLogPageVO);
 
-    List<StatisticsCountVO> trend(Map params);
+  Page<StatisticsCountVO> countPage( Page<StatisticsCountVO> page, Map<String,Object> map);
 
-    Page<StatisticsCountVO> countPage(Page<StatisticsCountVO> page, Map<String, Object> params);
+  List<StatisticsCountVO> trend(Map<String,Object> params);
 
-    List<Map> countForConfig(Map params);
 
-    List<Map> rateForConfig(Map params);
+  List<Map> countForConfig(Map<String,Object> params);
 
-    MarketingStatisticsCountVO getMarketingCountByBusinessId(String id);
+  List<Map> rateForConfig(Map<String,Object> params);
 
-    Page<SendLogPageVO> sendLogPage(Page<SendLogPageVO> page, SendLogPageVO sendLogPageVO);
+  MarketingStatisticsCountVO getMarketingCount(Map<String,Object> params);
+
+
+
 }

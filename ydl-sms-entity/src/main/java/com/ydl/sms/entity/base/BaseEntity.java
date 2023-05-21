@@ -1,9 +1,10 @@
 package com.ydl.sms.entity.base;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -12,9 +13,11 @@ import java.time.LocalDateTime;
  * 基础实体类，所有实体都需要继承
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public abstract class BaseEntity implements Serializable {
 
-    @TableId(type = IdType.ID_WORKER_STR)
+
     @ApiModelProperty(value = "主键")
     private String id;
 
@@ -31,6 +34,7 @@ public abstract class BaseEntity implements Serializable {
     private String updateUser;
 
     @ApiModelProperty(value = "逻辑删除：0删除")
+    @TableLogic
     private Integer isDelete;
 
 }

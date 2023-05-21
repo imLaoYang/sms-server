@@ -9,7 +9,6 @@ import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
-import java.time.LocalDateTime;
 
 /**
  * 通过切面方式，自定义注解，实现实体基础数据的注入（创建者、创建时间、修改者、修改时间）
@@ -26,7 +25,7 @@ public class DefaultParamsAspect {
 
     // TODO 自动注入基础属性（创建者、创建时间、修改者、修改时间）
 
-    //threadlocal  中获取userId
+    //threadlocal中获取userId
     Long userId = BaseContextHandler.getUserId();
 
     // 先判断当前的请求是否有带id,用id来判断是save请求还是update请求
@@ -46,14 +45,14 @@ public class DefaultParamsAspect {
         // id为空是save请求，添加创建者、创建时间
         Method setCreateUser = aClass.getMethod("setCreateUser", String.class);
         setCreateUser.invoke(arg, userId.toString()); // 还没做登入功能，先用id来代替
-        Method setCreateTime = aClass.getMethod("setCreateTime", LocalDateTime.class);
-        setCreateTime.invoke(arg, LocalDateTime.now());
+//        Method setCreateTime = aClass.getMethod("setCreateTime", LocalDateTime.class);
+//        setCreateTime.invoke(arg, LocalDateTime.now());
       } else {
-        // id为空是update请求，添加修改者、修改时间
+        // id不为空是update请求，添加修改者、修改时间
         Method setUpdateUser = aClass.getMethod("setUpdateUser", String.class);
         setUpdateUser.invoke(arg, userId.toString()); // 还没做登入功能，先用id来代替
-        Method setUpdateTime = aClass.getMethod("setUpdateTime", LocalDateTime.class);
-        setUpdateTime.invoke(arg, LocalDateTime.now());
+//        Method setUpdateTime = aClass.getMethod("setUpdateTime", LocalDateTime.class);
+//        setUpdateTime.invoke(arg, LocalDateTime.now());
       }
 
     }

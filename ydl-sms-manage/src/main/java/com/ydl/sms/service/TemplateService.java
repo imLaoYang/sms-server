@@ -1,6 +1,5 @@
 package com.ydl.sms.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ydl.sms.dto.TemplateDTO;
@@ -9,17 +8,14 @@ import com.ydl.sms.entity.TemplateEntity;
 import java.util.List;
 import java.util.Map;
 
-/**
- * 模板表
- */
 public interface TemplateService extends IService<TemplateEntity> {
-    String getNextCode();
 
-    IPage<TemplateDTO> customPage(Page<TemplateDTO> page, Map params);
+  // 获得模板编码
+  String getCode();
 
-    List<TemplateDTO> customList(Map params);
+  TemplateEntity getByName(String name);
 
-    TemplateEntity getByCode(String code);
+  void customPage(Page<TemplateDTO> page, Map<String,String> params);
+  List<TemplateDTO> customList(Map<String,String> params);
 
-    TemplateEntity getByName(String name);
 }

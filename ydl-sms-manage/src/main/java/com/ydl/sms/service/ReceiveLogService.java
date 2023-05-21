@@ -9,16 +9,12 @@ import com.ydl.sms.vo.StatisticsCountVO;
 import java.util.List;
 import java.util.Map;
 
-/**
- * 接收日志表
- *
- *
- */
 public interface ReceiveLogService extends IService<ReceiveLogEntity> {
 
-    Page<ReceiveLogVO> pageLog(Page<ReceiveLogVO> page, Map<String, Object> params);
+  Page<ReceiveLogVO> pageLog(Page<ReceiveLogVO> page,Map<String,Object> map);
 
-    List<StatisticsCountVO> top10(Map params);
 
-    List<StatisticsCountVO> trend(Map params);
+  List<StatisticsCountVO> top10(Map<String,Object> params);
+
+  List<StatisticsCountVO> trend(Map<String,Object> params);
 }

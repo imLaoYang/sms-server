@@ -4,18 +4,23 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.ydl.sms.entity.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * 签名表
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper=false)
 @TableName("signature")
 @ApiModel(description = "签名表")
 public class SignatureEntity extends BaseEntity {
 	private static final long serialVersionUID = 1L;
+
 
 	@ApiModelProperty(value = "签名名称")
 	private String name;

@@ -1,17 +1,18 @@
 package com.ydl.sms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ydl.sms.dto.ConfigDTO;
 import com.ydl.sms.entity.ConfigEntity;
 
-/**
- * 配置表
- */
+import java.util.List;
+
 public interface ConfigService extends IService<ConfigEntity> {
 
-    ConfigEntity getByName(String name);
+  ConfigEntity getByName(String name);
 
-    void getNewLevel(ConfigDTO entity);
+  void setNewLevel(ConfigEntity entity);
 
-    void sendUpdateMessage();
+  List<ConfigEntity> getLevel(List<String> ids);
+
+
+  void sendUpdateMessage();
 }

@@ -13,10 +13,10 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @EqualsAndHashCode(callSuper = false)
 @TableName("black_list")
 @ApiModel(description = "黑名单")
+@Builder
 public class BlackListEntity extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
@@ -26,5 +26,7 @@ public class BlackListEntity extends BaseEntity {
     private String content;
     @ApiModelProperty("备注")
     private String remark;
+
+
 
 }

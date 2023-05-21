@@ -28,9 +28,6 @@ import static com.ydl.exception.code.ExceptionCode.BASE_VALID_PARAM;
 
 /**
  * 黑名单
- *
- * @author IT李老师
- *
  */
 @RestController
 @RequestMapping("blacklist")
@@ -66,6 +63,7 @@ public class BlackListController extends BaseController {
                 .orderByDesc(BlackListEntity::getCreateTime);
         //执行查询
         blackListService.page(page, wrapper);
+
         return R.success(page);
     }
 
@@ -119,6 +117,7 @@ public class BlackListController extends BaseController {
         }
         R<Boolean> res = blackListService.upload(file);
         redisTemplate.delete("Black_" + 1);
+
         return res;
     }
 
