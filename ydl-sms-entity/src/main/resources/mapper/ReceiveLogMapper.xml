@@ -30,7 +30,7 @@
         left join signature s on rl.signature = s.code
         left join template t on rl.template = t.code
         <where>
-            1 = 1
+             rl.is_delete = 1 and  sl.is_delete = 1 and s.is_delete = 1 and t.is_delete = 1
             <if test="params.signatureName != null">
                 AND s.name LIKE concat('%',#{params.signatureName},'%')
             </if>
@@ -60,7 +60,7 @@
         FROM
             receive_log
         <where>
-            1 = 1
+            is_delete = 1
             <if test="params.startCreateTime != null">
                 and create_time >= DATE_FORMAT(#{params.startCreateTime}, '%Y-%m-%d %H:%i:%S' )
             </if>
@@ -81,7 +81,7 @@
         FROM
             receive_log
         <where>
-            1 = 1
+            is_delete = 1
             <if test="params.platformId != null">
                 and platform_id = #{params.platformId}
             </if>

@@ -28,9 +28,6 @@ import static com.ydl.exception.code.ExceptionCode.BASE_VALID_PARAM;
 
 /**
  * 黑名单
- *
- * @author IT李老师
- *
  */
 @RestController
 @RequestMapping("blacklist")

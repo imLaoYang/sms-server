@@ -32,7 +32,6 @@ import java.util.stream.Collectors;
 /**
  * 统计
  *
- * @author IT李老师
  *
  */
 @RestController
@@ -80,7 +79,8 @@ public class StatisticsController extends BaseController {
         countWrapper.between(BaseEntity::getCreateTime, start, end);
         int count = sendLogService.count(countWrapper);
 
-        countWrapper.eq(SendLogEntity::getStatus, 1);// 成功
+        countWrapper.eq(SendLogEntity::getStatus, 1);
+        // 成功
         int success = sendLogService.count(countWrapper);
 
         return R.success(StatisticsCountVO.builder().count(count).success(success).fail(count - success).build());
@@ -88,10 +88,10 @@ public class StatisticsController extends BaseController {
 
     @GetMapping("trend")
     @ApiOperation("发送量趋势")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "startCreateTime", value = "开始时间", paramType = "query", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "endCreateTime", value = "结束时间", paramType = "query", required = true, dataType = "String")
-    })
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "startCreateTime", value = "开始时间", paramType = "query", required = true, dataType = "String"),
+//            @ApiImplicitParam(name = "endCreateTime", value = "结束时间", paramType = "query", required = true, dataType = "String")
+//    })
     public R trend() {
         Map params = new HashMap();
         if (getStartCreateTime() != null)
@@ -230,6 +230,7 @@ public class StatisticsController extends BaseController {
         if (getEndCreateTime() != null)
             params.put("endCreateTime", DateUtils.format(getEndCreateTime(), DateUtils.DEFAULT_DATE_TIME_FORMAT));
         params.put("platformId", platformId);
+
         List<StatisticsCountVO> logs = receiveLogService.trend(params);
         Map<String, StatisticsCountVO> logsMap = logs.stream().collect(Collectors.toMap(item -> item.getDate(), item -> item));
 
