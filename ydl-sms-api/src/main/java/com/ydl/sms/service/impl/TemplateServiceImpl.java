@@ -15,8 +15,6 @@ import java.util.concurrent.TimeUnit;
 /**
  * 短信模板
  *
- * @author IT李老师
- *
  */
 @Service
 public class TemplateServiceImpl extends ServiceImpl<TemplateMapper, TemplateEntity> implements TemplateService {

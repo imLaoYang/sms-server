@@ -8,8 +8,6 @@ import java.util.List;
 /**
  * 配置表
  *
- * @author IT李老师
- *
  */
 public interface ConfigService extends IService<ConfigEntity> {
 

@@ -15,8 +15,6 @@ import java.util.concurrent.TimeUnit;
 /**
  * 短信签名
  *
- * @author IT李老师
- *
  */
 @Service
 public class SignatureServiceImpl extends ServiceImpl<SignatureMapper, SignatureEntity> implements SignatureService {

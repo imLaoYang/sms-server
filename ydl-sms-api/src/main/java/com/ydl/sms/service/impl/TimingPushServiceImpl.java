@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 /**
  * 定时发送
  *
- * @author IT李老师
- *
  */
 @Service
 public class TimingPushServiceImpl extends ServiceImpl<TimingPushMapper, TimingPushEntity> implements TimingPushService {

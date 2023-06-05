@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
  * header 中存放鉴权信息、平台信息
  * body 中只有短信内容
  *
- * @author IT李老师
  */
 @RestController
 @RequestMapping("sms")

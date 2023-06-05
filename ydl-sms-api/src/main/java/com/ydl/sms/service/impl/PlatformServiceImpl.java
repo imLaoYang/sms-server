@@ -15,8 +15,6 @@ import java.util.concurrent.TimeUnit;
 /**
  * 平台
  *
- * @author IT李老师
- *
  */
 @Service
 public class PlatformServiceImpl extends ServiceImpl<PlatformMapper, PlatformEntity> implements PlatformService {
@@ -29,6 +27,7 @@ public class PlatformServiceImpl extends ServiceImpl<PlatformMapper, PlatformEnt
 
         ValueOperations<String, PlatformEntity> ops = redisTemplate.opsForValue();
         PlatformEntity platform = ops.get(accessKeyId);
+        // redis没有缓存则去MySQL里面查
         if (platform == null) {
             LambdaQueryWrapper<PlatformEntity> wrapper = new LambdaQueryWrapper();
             wrapper.eq(PlatformEntity::getAccessKeyId, accessKeyId);

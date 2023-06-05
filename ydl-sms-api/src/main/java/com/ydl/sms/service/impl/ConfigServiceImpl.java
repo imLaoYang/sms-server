@@ -13,8 +13,6 @@ import java.util.Map;
 /**
  * 通道配置
  *
- * @author IT李老师
- *
  */
 @Service
 public class ConfigServiceImpl extends ServiceImpl<ConfigMapper, ConfigEntity> implements ConfigService {

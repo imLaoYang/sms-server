@@ -17,6 +17,6 @@ public class SmsParamsDTO extends BaseParamsDTO {
     private String signature;
     @ApiModelProperty("参数")
     private Map<String, String> params;    //尊敬的${name}先生/女士，您尾号为${number}的卡，消费了${money}元。
-                                           //name=>IT李老师 number=>1234 money=>10000
+                                           //name=>李老师 number=>1234 money=>10000
 
 }
