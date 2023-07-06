@@ -93,9 +93,8 @@ public class PlatformController extends BaseController {
    */
   @DeleteMapping
   @ApiOperation("删除")
-  public R deletePlatform(List<String> ids) {
+  public R deletePlatform(@RequestBody List<String> ids) {
     platformService.removeByIds(ids);
-
     return R.success("删除成功");
   }
 

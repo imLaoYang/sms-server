@@ -168,7 +168,7 @@ public class SmsSendServiceImpl implements SmsSendService {
       LocalDateTime localDateTime =
               LocalDateTime.parse(sendTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
       LocalDateTime nowDateTime = LocalDateTime.now().plusMinutes(1L).withSecond(0).minusSeconds(0).withNano(0);
-      if (localDateTime.compareTo(nowDateTime) <= 0) {
+      if (localDateTime.compareTo(nowDateTime) >= 0) {
         throw new SmsException("发送时间过于接近当前时间，无法发送");
       }
     }

@@ -30,7 +30,7 @@
         left join signature s on rl.signature = s.code
         left join template t on rl.template = t.code
         <where>
-             rl.is_delete = 1 and  sl.is_delete = 1 and s.is_delete = 1 and t.is_delete = 1
+             rl.is_delete = 1
             <if test="params.signatureName != null">
                 AND s.name LIKE concat('%',#{params.signatureName},'%')
             </if>

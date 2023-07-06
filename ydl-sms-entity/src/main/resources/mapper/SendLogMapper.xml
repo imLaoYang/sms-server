@@ -30,7 +30,7 @@
         left join signature s on sl.signature = s.code
         left join template t on sl.template = t.code
         <where>
-            sl.is_delete = 1 and s.is_delete = 1 and t.is_delete = 1 and rl.is_delete = 1
+            sl.is_delete = 1
             <if test="params.mobile != null">
                 AND sl.mobile LIKE concat('%',#{params.mobile},'%')
             </if>
@@ -80,7 +80,7 @@
         send_log sl
         left join signature s on sl.signature = s.code
         <where>
-            sl.is_delete = 1 and s.is_delete = 1
+            sl.is_delete = 1
             <if test="params.startCreateTime != null">
                 and sl.create_time >= DATE_FORMAT(#{params.startCreateTime}, '%Y-%m-%d %H:%i:%S' )
             </if>
@@ -128,7 +128,7 @@
             LEFT JOIN receive_log rl ON sl.api_log_id = rl.api_log_id
             LEFT JOIN signature s ON sl.signature = s.CODE
         WHERE
-            rl.business = #{params.business} and sl.is_delete = 1 and rl.is_delete = 1 and s.is_delete = 1
+            rl.business = #{params.business} and sl.is_delete = 1
     </select>
     <select id="sendLogPage" resultType="com.ydl.sms.vo.SendLogPageVO">
         SELECT
@@ -150,7 +150,7 @@
         LEFT JOIN signature s ON sl.signature = s.CODE
         LEFT JOIN template t ON sl.template = t.CODE
         <where>
-            sl.is_delete = 1 and rl.is_delete = 1 and s.is_delete = 1 and t.is_delete = 1
+            sl.is_delete = 1
             <if test="params.date != null">
                 AND sl.create_time >= DATE_FORMAT(concat(#{params.date},' 00:00:00'), '%Y-%m-%d %H:%i:%S' )
                 AND sl.create_time <![CDATA[ <= ]]> DATE_FORMAT(concat(#{params.date},' 23:59:59'), '%Y-%m-%d %H:%i:%S')
