@@ -18,9 +18,9 @@ public interface ConfigService extends IService<ConfigEntity> {
      * 通道配置信息列表
      * @return
      */
-    List<ConfigEntity> listForConnect();
+    List<ConfigEntity> listForConfig();
 
-    List<ConfigEntity> listForNewConnect();
+    List<ConfigEntity> listForNewConfig();
 
     boolean updateBatchById(Collection<ConfigEntity> entityList);
 }

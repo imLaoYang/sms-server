@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
-@ConfigurationProperties(prefix = "ydl.sms")
+@ConfigurationProperties(prefix = "ydl.sms") // 将配置文件中ydl.sms开头的属性绑定到Bean中
 @RefreshScope
 public class SmsProperties {
     // 消息最大失败次数

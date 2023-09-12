@@ -17,8 +17,6 @@ import javax.annotation.PostConstruct;
 
 /**
  * netty 服务启动类
- *
- * @author IT李老师
  */
 @Component
 @Slf4j

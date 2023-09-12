@@ -23,9 +23,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * 通道配置表
- *
- * @author IT李老师
- *
  */
 @Service
 @Slf4j
@@ -41,7 +38,7 @@ public class ConfigServiceImpl extends ServiceImpl<ConfigMapper, ConfigEntity> i
      * @return
      */
     @Override
-    public List<ConfigEntity> listForConnect() {
+    public List<ConfigEntity> listForConfig() {
         //获取Redis的通道列表
         ValueOperations<String, List<ConfigEntity>> ops = redisTemplate.opsForValue();
         List<ConfigEntity> configEntities = ops.get("listForConnect");
@@ -70,9 +67,9 @@ public class ConfigServiceImpl extends ServiceImpl<ConfigMapper, ConfigEntity> i
      * @return
      */
     @Override
-    public List<ConfigEntity> listForNewConnect() {
+    public List<ConfigEntity> listForNewConfig() {
         // 1、获取全部配置
-        List<ConfigEntity> configs = this.listForConnect();
+        List<ConfigEntity> configs = this.listForConfig();
 
         //2、降级第一级别通道
         Iterator<ConfigEntity> it = configs.iterator();
@@ -92,7 +89,6 @@ public class ConfigServiceImpl extends ServiceImpl<ConfigMapper, ConfigEntity> i
 
 
         //获取当前时间前一个小时的时间
-        List<ConfigDTO> configDTOS = new ArrayList<>();
         Date date = new Date();//获取当前时间    
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -100,9 +96,10 @@ public class ConfigServiceImpl extends ServiceImpl<ConfigMapper, ConfigEntity> i
         Date finalDate = calendar.getTime();
 
         //通道是否发送过短信标识
-        AtomicBoolean finded = new AtomicBoolean(false);
+        AtomicBoolean finded = new AtomicBoolean(false);         // 线程安全的布尔值
 
         //4. 记录每个可用通道最近一个小时内的发送成功的次数
+        List<ConfigDTO> configDTOS = new ArrayList<>();
         list.forEach(configEntity -> {
             ConfigDTO configDTO = new ConfigDTO();
             BeanUtils.copyProperties(configEntity, configDTO);

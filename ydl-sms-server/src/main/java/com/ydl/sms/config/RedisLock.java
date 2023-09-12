@@ -1,5 +1,6 @@
 package com.ydl.sms.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStringCommands;
@@ -29,6 +30,7 @@ public class RedisLock {
                     + "    return 0\n"
                     + "end";
 
+    @Autowired
     private RedisTemplate redisTemplate;
 
     public RedisLock(RedisTemplate redisTemplate) {
@@ -38,10 +40,10 @@ public class RedisLock {
     /**
      * 加锁，有阻塞
      *
-     * @param name
-     * @param expire
-     * @param timeout
-     * @return
+     * @param name id
+     * @param expire 加锁时间
+     * @param timeout 超时时间
+     * @return token
      */
     public String lock(String name, long expire, long timeout) {
         long startTime = System.currentTimeMillis();
@@ -66,9 +68,9 @@ public class RedisLock {
     /**
      * 加锁，无阻塞
      *
-     * @param name
-     * @param expire
-     * @return
+     * @param name id
+     * @param expire 加锁时间
+     * @return token
      */
     public String tryLock(String name, long expire) {
         name = name + "_lock";

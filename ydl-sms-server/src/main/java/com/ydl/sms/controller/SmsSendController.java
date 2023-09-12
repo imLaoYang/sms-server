@@ -2,7 +2,6 @@ package com.ydl.sms.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.ydl.base.R;
-import com.ydl.base.R;
 import com.ydl.sms.entity.*;
 import com.ydl.sms.service.*;
 import com.ydl.utils.DateUtils;
@@ -24,8 +23,6 @@ import java.util.UUID;
  * 短信发送接口
  * header 中存放鉴权信息、平台信息
  * body 中只有短信内容
- *
- * @author IT李老师
  *
  */
 @RestController

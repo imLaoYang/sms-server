@@ -15,7 +15,6 @@ import java.io.StringWriter;
 /**
  * Exception工具类
  *
- * @author IT李老师
  */
 public class ExceptionUtils {
 

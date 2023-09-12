@@ -5,7 +5,7 @@ import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.stereotype.Component;
 
-//普通类--》reids监听类
+// 普通类--》redis监听类
 @Component
 @Slf4j
 public class MyListener implements MessageListener {

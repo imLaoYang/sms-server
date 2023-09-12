@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * Redis发布订阅----订阅者，通过Redis的发布订阅模式监听通道相关消息
+ * 实现MessageListener接口，每次新消息到达时，都会调用回调onMessage()
  */
 @Component
 @Slf4j
@@ -41,7 +42,7 @@ public class HighServerReceiver implements MessageListener {
                 smsConnectLoader.initConnect();
                 break;
             case ServerTopic.USE_NEW_CONNECT://更新通道
-                smsConnectLoader.changeNewConnect();
+                smsConnectLoader.changeNewConfig();
             default:
                 break;
         }

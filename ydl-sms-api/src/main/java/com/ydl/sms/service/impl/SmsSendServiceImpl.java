@@ -294,7 +294,7 @@ public class SmsSendServiceImpl implements SmsSendService {
   private void pushSmsMessage(TemplateEntity templateEntity, SmsSendDTO smsSendDTO, PlatformEntity platformEntity) {
     // TODO 短信接收服务：将短信信息保存到Mysql或者Redis队列
     String sendTime = smsSendDTO.getSendTime();
-    String request = JSON.toJSONString(smsSendDTO.getParams());
+    String request = JSON.toJSONString(smsSendDTO);
     long star = System.currentTimeMillis();
     // 日志实体类
     ReceiveLogEntity receiveLogEntity = new ReceiveLogEntity();
