@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>com.ydl</groupId>
-        <artifactId>ydl-sms-backend</artifactId>
+        <artifactId>sms-backend</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -119,10 +119,10 @@
             <groupId>com.ydl</groupId>
             <artifactId>ydl-tools-databases</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.ydl</groupId>
-            <artifactId>ydl-tools-dozer</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.ydl</groupId>-->
+<!--            <artifactId>ydl-tools-dozer</artifactId>-->
+<!--        </dependency>-->
 
         <!-- @RefreshScope 需要使用 -->
         <dependency>

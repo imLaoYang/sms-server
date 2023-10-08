@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>com.ydl</groupId>
-        <artifactId>ydl-sms-backend</artifactId>
+        <artifactId>sms-backend</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -121,18 +121,25 @@
             <optional>true</optional>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>4.5.0</version>
+        </dependency>
+
+
 <!--        <dependency>-->
 <!--            <groupId>com.aliyun</groupId>-->
-<!--            <artifactId>aliyun-java-sdk-core</artifactId>-->
-<!--            <version>4.5.0</version>-->
+<!--            <artifactId>dysmsapi20170525</artifactId>-->
+<!--            <version>2.0.5</version>-->
 <!--        </dependency>-->
-
-
         <dependency>
             <groupId>com.aliyun</groupId>
             <artifactId>dysmsapi20170525</artifactId>
-            <version>2.0.5</version>
+            <version>2.0.24</version>
         </dependency>
+
+
 
         <!--redis-->
         <dependency>

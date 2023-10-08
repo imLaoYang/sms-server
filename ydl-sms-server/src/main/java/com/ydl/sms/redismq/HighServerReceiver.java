@@ -41,7 +41,7 @@ public class HighServerReceiver implements MessageListener {
                 smsConnectLoader.initConnect();
                 break;
             case ServerTopic.USE_NEW_CONNECT://更新通道
-                smsConnectLoader.changeNewConnect();
+                smsConnectLoader.changeNewConfig();
             default:
                 break;
         }

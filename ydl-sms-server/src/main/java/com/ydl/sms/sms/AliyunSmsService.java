@@ -4,21 +4,13 @@ package com.ydl.sms.sms;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.aliyun.dysmsapi20170525.Client;
-
-import com.netflix.client.ClientException;
+import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
+import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
+import com.aliyun.teaopenapi.models.Config;
 import com.ydl.sms.entity.SignatureEntity;
 import com.ydl.sms.entity.SmsConfig;
-import com.ydl.utils.DateUtils;
 import lombok.extern.slf4j.Slf4j;
-import com.aliyun.tea.*;
-import com.aliyun.dysmsapi20170525.*;
-import com.aliyun.dysmsapi20170525.models.*;
-import com.aliyun.teaopenapi.*;
-import com.aliyun.teaopenapi.models.*;
 
-import java.rmi.ServerException;
-import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -65,12 +57,14 @@ public class AliyunSmsService extends AbstractSmsService {
             request.setTemplateParam(JSON.toJSONString(params));
             request.setSignName(signatureEntity.getContent());
 
+            log.info("request:{}",request.toString());
             SendSmsResponse response = client.sendSms(request);
+
             JSONObject jsonObject = JSON.parseObject(String.valueOf(response.getBody()));
             if (response.getBody().getCode().equals("OK")) {
                 return response.getBody().toString();
             } else {
-                return failResponse(jsonObject.getString("Message"),response.getBody().getMessage());
+                return failResponse(jsonObject.getString("message"),response.getBody().getMessage());
             }
         } catch (Exception e) {
             log.error("Aliyun 短信发送失败：{} ,{}", mobile, template, e);

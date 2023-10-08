@@ -10,7 +10,7 @@
         <relativePath/>
     </parent>
     <groupId>com.ydl</groupId>
-    <artifactId>ydl-sms-backend</artifactId>
+    <artifactId>sms-backend</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
@@ -130,16 +130,16 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>com.ydl</groupId>
-                <artifactId>ydl-auth-entity</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.ydl</groupId>
-                <artifactId>ydl-auth-api</artifactId>
-                <version>${project.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.ydl</groupId>-->
+<!--                <artifactId>ydl-auth-entity</artifactId>-->
+<!--                <version>${project.version}</version>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>com.ydl</groupId>-->
+<!--                <artifactId>ydl-auth-api</artifactId>-->
+<!--                <version>${project.version}</version>-->
+<!--            </dependency>-->
 
             <!-- ydl-tools -->
             <dependency>
@@ -147,21 +147,21 @@
                 <artifactId>ydl-tools-common</artifactId>
                 <version>${ydl-tools.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.ydl</groupId>
-                <artifactId>ydl-tools-j2cache</artifactId>
-                <version>${ydl-tools.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.ydl</groupId>-->
+<!--                <artifactId>ydl-tools-j2cache</artifactId>-->
+<!--                <version>${ydl-tools.version}</version>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>com.ydl</groupId>
                 <artifactId>ydl-tools-user</artifactId>
                 <version>${ydl-tools.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.ydl</groupId>
-                <artifactId>ydl-tools-core</artifactId>
-                <version>${ydl-tools.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.ydl</groupId>-->
+<!--                <artifactId>ydl-tools-core</artifactId>-->
+<!--                <version>${ydl-tools.version}</version>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>com.ydl</groupId>
                 <artifactId>ydl-tools-databases</artifactId>
@@ -187,11 +187,11 @@
                 <artifactId>ydl-tools-validator</artifactId>
                 <version>${ydl-tools.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.ydl</groupId>
-                <artifactId>ydl-tools-jwt</artifactId>
-                <version>${ydl-tools.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.ydl</groupId>-->
+<!--                <artifactId>ydl-tools-jwt</artifactId>-->
+<!--                <version>${ydl-tools.version}</version>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>com.ydl</groupId>
                 <artifactId>ydl-tools-xss</artifactId>
@@ -209,40 +209,40 @@
                 <artifactId>mybatis-plus</artifactId>
                 <version>${mybatisplus.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.mybatis</groupId>
-                <artifactId>mybatis-typehandlers-jsr310</artifactId>
-                <version>${mybatis.typehandlers.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
-                <version>${druid.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.mybatis</groupId>-->
+<!--                <artifactId>mybatis-typehandlers-jsr310</artifactId>-->
+<!--                <version>${mybatis.typehandlers.version}</version>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>mysql</groupId>-->
+<!--                <artifactId>mysql-connector-java</artifactId>-->
+<!--                <version>${mysql.version}</version>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>com.alibaba</groupId>-->
+<!--                <artifactId>druid-spring-boot-starter</artifactId>-->
+<!--                <version>${druid.version}</version>-->
+<!--            </dependency>-->
 
-            <!-- FastDFS文件 -->
-            <dependency>
-                <groupId>com.github.tobato</groupId>
-                <artifactId>fastdfs-client</artifactId>
-                <version>${tobato-fastdfs-client.version}</version>
-            </dependency>
-            <!-- 七牛依赖 -->
-            <dependency>
-                <groupId>com.qiniu</groupId>
-                <artifactId>qiniu-java-sdk</artifactId>
-                <version>${qiniu-java-sdk}</version>
-            </dependency>
-            <!-- Minio -->
-            <dependency>
-                <groupId>io.minio</groupId>
-                <artifactId>minio</artifactId>
-                <version>${minio.version}</version>
-            </dependency>
+<!--            &lt;!&ndash; FastDFS文件 &ndash;&gt;-->
+<!--            <dependency>-->
+<!--                <groupId>com.github.tobato</groupId>-->
+<!--                <artifactId>fastdfs-client</artifactId>-->
+<!--                <version>${tobato-fastdfs-client.version}</version>-->
+<!--            </dependency>-->
+<!--            &lt;!&ndash; 七牛依赖 &ndash;&gt;-->
+<!--            <dependency>-->
+<!--                <groupId>com.qiniu</groupId>-->
+<!--                <artifactId>qiniu-java-sdk</artifactId>-->
+<!--                <version>${qiniu-java-sdk}</version>-->
+<!--            </dependency>-->
+<!--            &lt;!&ndash; Minio &ndash;&gt;-->
+<!--            <dependency>-->
+<!--                <groupId>io.minio</groupId>-->
+<!--                <artifactId>minio</artifactId>-->
+<!--                <version>${minio.version}</version>-->
+<!--            </dependency>-->
 
             <dependency>
                 <groupId>io.springfox</groupId>
@@ -250,11 +250,11 @@
                 <version>${springfox.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>com.github.whvcse</groupId>
-                <artifactId>easy-captcha</artifactId>
-                <version>${easy-captcha.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.github.whvcse</groupId>-->
+<!--                <artifactId>easy-captcha</artifactId>-->
+<!--                <version>${easy-captcha.version}</version>-->
+<!--            </dependency>-->
         </dependencies>
     </dependencyManagement>
 
