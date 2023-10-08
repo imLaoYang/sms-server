@@ -104,10 +104,10 @@ public class PlatformController extends BaseController {
   @DefaultParams //aop
   public R editPlatform(@RequestBody PlatformDTO platformDTO) {
     // 判断名称是否重复
-    PlatformEntity entity = platformService.getByName(platformDTO.getName());
-    if (entity != null && !entity.getId().equals(platformDTO.getId())) {
-      return R.fail("名称已存在");
-    }
+//    PlatformEntity entity = platformService.getByName(platformDTO.getName());
+//    if (entity != null && !entity.getId().equals(platformDTO.getId())) {
+//      return R.fail("名称已存在");
+//    }
     platformService.updateById(platformDTO);
 
     return R.success("修改成功");

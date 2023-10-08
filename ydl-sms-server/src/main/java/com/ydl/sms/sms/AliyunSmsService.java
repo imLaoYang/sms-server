@@ -17,7 +17,6 @@ import java.util.Map;
 /**
  * 阿里云短信服务
  *
- * @author
  */
 @Slf4j
 public class AliyunSmsService extends AbstractSmsService {

@@ -114,11 +114,11 @@ public class TemplateController extends BaseController {
   @DefaultParams  // 用AOP统一添加 修改者，修改时间
   public R<String> editTemplate(@RequestBody TemplateDTO templateDTO) {
     // 判断名称是否已经存在
-    String name = templateDTO.getName();
-    TemplateEntity entity = templateService.getByName(name);
-    if (entity != null && name.equals(entity.getName())) {
-      return R.fail("模板名称已存在");
-    }
+//    String name = templateDTO.getName();
+//    TemplateEntity entity = templateService.getByName(name);
+//    if (entity != null && name.equals(entity.getName())) {
+//      return R.fail("模板名称已存在");
+//    }
     templateService.updateById(templateDTO);
 
     return R.success("修改成功");

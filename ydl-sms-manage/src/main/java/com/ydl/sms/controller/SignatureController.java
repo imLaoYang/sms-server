@@ -117,12 +117,12 @@ public class SignatureController extends BaseController {
   @PutMapping
   @DefaultParams  // 用AOP统一添加 修改者，修改时间
   public R<String> editSignature(@RequestBody SignatureDTO signatureDTO) {
-    // 判断名称是否已经存在
-    String name = signatureDTO.getName();
-    SignatureEntity entity = signatureService.getByName(name);
-    if (entity != null && name.equals(entity.getName())) {
-      return R.fail("名称已存在");
-    }
+//    // 判断名称是否已经存在
+//    String name = signatureDTO.getName();
+//    SignatureEntity entity = signatureService.getByName(name);
+//    if (entity != null && name.equals(entity.getName())) {
+//      return R.fail("名称已存在");
+//    }
 
     // 更新操作
     signatureService.updateById(signatureDTO);
