@@ -85,11 +85,6 @@ public class ConfigController extends BaseController {
   @ApiOperation("修改通道")
   @DefaultParams // aop 默认添加修改人
   public R<String> editConfig(@RequestBody ConfigDTO configDTO) {
-    // 判断名称是否存在
-//    ConfigEntity entity = configService.getByName(configDTO.getName());
-//    if (entity != null) {
-//      return R.fail("通道名称重复");
-//    }
     configService.updateById(configDTO);
 
     // config_signature表插入数据
