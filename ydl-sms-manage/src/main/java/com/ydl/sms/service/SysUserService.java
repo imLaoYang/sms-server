@@ -1,6 +1,7 @@
 package com.ydl.sms.service;
 
 import com.ydl.base.R;
+import com.ydl.sms.dto.UserDTO;
 import com.ydl.sms.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -15,5 +16,5 @@ public interface SysUserService extends IService<SysUser> {
 
   R logout();
 
-  R updatePwd(SysUser sysUser,String newPwd);
+  R updatePwd( UserDTO userDTO);
 }

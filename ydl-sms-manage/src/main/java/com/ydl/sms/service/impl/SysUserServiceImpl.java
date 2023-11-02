@@ -3,6 +3,7 @@ package com.ydl.sms.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ydl.base.R;
+import com.ydl.sms.dto.UserDTO;
 import com.ydl.sms.entity.SysUser;
 import com.ydl.sms.mapper.SysUserMapper;
 import com.ydl.sms.security.LoginUser;
@@ -72,28 +73,26 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
   /**
    * 修改密码
    *
-   * @param sysUser
-   * @param newPwd
    * @return
    */
   @Override
-  public R updatePwd(SysUser sysUser, String newPwd) {
+  public R updatePwd(UserDTO userDTO) {
 
-    SysUser user = getSysUserByUserName(sysUser.getUserName());
-    String encodePwd = sysUser.getPassword();
-    String rawPwd = user.getPassword();
-    boolean matches = bCryptPasswordEncoder.matches(rawPwd, encodePwd);
+    SysUser sysUser = getSysUserByUserName(userDTO.getUserName());
+    // 数据库密码 加密
+    String dbPwd = sysUser.getPassword();
+    // 前端传来的原密码 未加密
+    String rawPwd = userDTO.getOldPaw();
+    boolean matches = bCryptPasswordEncoder.matches(rawPwd, dbPwd);
     if (!matches) {
       return R.fail("原密码不正确");
     }
     // 改密码
-    String pwd = bCryptPasswordEncoder.encode(newPwd);
+    String pwd = bCryptPasswordEncoder.encode(userDTO.getNewPaw());
     sysUser.setPassword(pwd);
     baseMapper.updateById(sysUser);
-
     return R.success("修改密码成功");
   }
-
 
 
   private SysUser getSysUserByUserName(String userName) {

@@ -1,6 +1,7 @@
 package com.ydl.sms.controller;
 
 import com.ydl.base.R;
+import com.ydl.sms.dto.UserDTO;
 import com.ydl.sms.entity.SysUser;
 import com.ydl.sms.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,9 @@ public class UserController {
   }
 
   @PostMapping("updatepwd")
-  public R updatePwd(@RequestBody SysUser sysUser,String newPwd){
-    return sysUserService.updatePwd(sysUser,newPwd );
+  public R updatePwd(@RequestBody UserDTO userDTO){
+
+    return sysUserService.updatePwd(userDTO);
   }
 
 }
