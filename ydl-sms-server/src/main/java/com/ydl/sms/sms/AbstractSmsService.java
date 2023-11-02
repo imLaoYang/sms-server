@@ -86,6 +86,6 @@ public abstract class AbstractSmsService {
     protected abstract String sendSmsBatch(String[] mobiles, LinkedHashMap<String, String>[] params, String[] signatures, String[] templates);
 
     protected String failResponse(String msg, String response) {
-        return "FAIL@#@" + msg + "@#@" + response;
+        return "FAIL:" + msg + "--------" + response;
     }
 }

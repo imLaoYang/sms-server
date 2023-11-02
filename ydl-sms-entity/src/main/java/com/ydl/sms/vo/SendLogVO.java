@@ -9,7 +9,7 @@ import lombok.Data;
 /**
  * 日志表
  *
- * @author IT李老师
+ *  
  *
  */
 @Data

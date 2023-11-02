@@ -4,7 +4,7 @@ services:
     image: redis
     restart: always
     container_name: redis-master
-#    network_mode: "host"
+    network_mode: "host"
     command: redis-server --port 16380 --requirepass 123456 --protected-mode no --daemonize no
     ports:
       - 16380:16380
@@ -12,15 +12,18 @@ services:
     image: redis
     restart: always
     container_name: redis-slave-1
-#    network_mode: "host"
-    command: redis-server --slaveof 127.0.0.1 16380 --port 16381 --requirepass 123456 --masterauth 123456 --protected-mode no --daemonize no
+    network_mode: "host"
+    command: redis-server --slaveof 192.168.214.137 16380 --port 16381 --requirepass 123456 --masterauth 123456 --protected-mode no --daemonize no
     ports:
       - 16381:16381
   slave2:
     image: redis
     restart: always
     container_name: redis-slave-2
-#    network_mode: "host"
-    command: redis-server --slaveof 127.0.0.1 16380 --port 16382 --requirepass 123456 --masterauth 123456 --protected-mode no --daemonize no
+    network_mode: "host"
+    command: redis-server --slaveof 192.168.214.137 16380 --port 16382 --requirepass 123456 --masterauth 123456 --protected-mode no --daemonize no
     ports:
       - 16382:16382
+
+
+  docker run -d -p 6379:6379 -v /mydata/redis/redis.conf:/etc/redis/redis.conf -v /mydata/redis/data:/data --name redis redis redis-server /etc/redis/redis.conf

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 /**
  * 接入平台
  *
- * @author IT李老师
+ *  
  *
  */
 @Service

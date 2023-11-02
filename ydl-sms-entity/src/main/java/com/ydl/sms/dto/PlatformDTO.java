@@ -8,7 +8,7 @@ import lombok.Data;
 /**
  * 配置表
  *
- * @author IT李老师
+ *  
  *
  */
 @Data

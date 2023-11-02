@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 /**
  * 日志表
  *
- * @author IT李老师
+ *  
  *
  */
 @Service

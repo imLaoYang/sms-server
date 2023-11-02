@@ -7,9 +7,6 @@ import lombok.Data;
 
 /**
  * 配置—模板表
- *
- * @author IT李老师
- *
  */
 @Data
 @ApiModel(description = "配置—模板表")

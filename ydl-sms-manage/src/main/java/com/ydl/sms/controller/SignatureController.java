@@ -6,7 +6,6 @@ import com.ydl.base.BaseController;
 import com.ydl.base.R;
 import com.ydl.database.mybatis.conditions.Wraps;
 import com.ydl.database.mybatis.conditions.query.LbqWrapper;
-import com.ydl.sms.annotation.DefaultParams;
 import com.ydl.sms.dto.SignatureDTO;
 import com.ydl.sms.entity.ReceiveLogEntity;
 import com.ydl.sms.entity.SignatureEntity;
@@ -17,6 +16,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -96,7 +96,7 @@ public class SignatureController extends BaseController {
   // 添加签名
   @ApiOperation("添加签名")
   @PostMapping()
-  @DefaultParams  // 用AOP统一添加 创建者，创建时间
+  @PreAuthorize("hasAuthority('all')")
   public R<String> addSignature(@RequestBody SignatureEntity entity) {
     // 判断签名是否存在
     String name = entity.getName();
@@ -115,7 +115,7 @@ public class SignatureController extends BaseController {
   // 修改签名
   @ApiOperation("修改签名")
   @PutMapping
-  @DefaultParams  // 用AOP统一添加 修改者，修改时间
+  @PreAuthorize("hasAuthority('all')")
   public R<String> editSignature(@RequestBody SignatureDTO signatureDTO) {
     // 更新操作
     signatureService.updateById(signatureDTO);
@@ -126,6 +126,7 @@ public class SignatureController extends BaseController {
   // 删除签名
   @ApiOperation("删除签名")
   @DeleteMapping
+  @PreAuthorize("hasAuthority('all')")
   public R deleteSignature(@RequestBody List<String> ids) {
     // 判断是否被使用，查询发送日志表
     List<String> codes = new ArrayList<>();

@@ -2,7 +2,6 @@ package com.ydl.sms.sms;
 
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.aliyun.dysmsapi20170525.Client;
 import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
@@ -54,16 +53,16 @@ public class AliyunSmsService extends AbstractSmsService {
             request.setPhoneNumbers(mobile);
             request.setTemplateCode(code);
             request.setTemplateParam(JSON.toJSONString(params));
-            request.setSignName(signatureEntity.getContent());
+            request.setSignName(signatureEntity.getName());
 
-            log.info("request:{}",request.toString());
+            log.info("request:{}",request);
             SendSmsResponse response = client.sendSms(request);
 
-            JSONObject jsonObject = JSON.parseObject(String.valueOf(response.getBody()));
+//            JSONObject jsonObject = JSON.parseObject(String.valueOf(response.getBody()));
             if (response.getBody().getCode().equals("OK")) {
                 return response.getBody().toString();
             } else {
-                return failResponse(jsonObject.getString("message"),response.getBody().getMessage());
+                return failResponse(response.getBody().getMessage(),response.toString());
             }
         } catch (Exception e) {
             log.error("Aliyun 短信发送失败：{} ,{}", mobile, template, e);

@@ -6,7 +6,7 @@ import com.ydl.sms.entity.SendLogEntity;
 /**
  * 日志表
  *
- * @author IT李老师
+ *  
  *
  */
 public interface SendLogService extends IService<SendLogEntity> {

@@ -6,7 +6,6 @@ import com.ydl.base.BaseController;
 import com.ydl.base.R;
 import com.ydl.database.mybatis.conditions.Wraps;
 import com.ydl.database.mybatis.conditions.query.LbqWrapper;
-import com.ydl.sms.annotation.DefaultParams;
 import com.ydl.sms.dto.TemplateDTO;
 import com.ydl.sms.entity.ReceiveLogEntity;
 import com.ydl.sms.entity.TemplateEntity;
@@ -17,6 +16,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -54,38 +54,37 @@ public class TemplateController extends BaseController {
     // 获取前端页面数据
     Page<TemplateEntity> page = getPage();
     LbqWrapper<TemplateEntity> wrapper = Wraps.lbQ();
-    wrapper.like(TemplateEntity::getName,templateDTO.getName())
-            .like(TemplateEntity::getId,templateDTO.getId())
+    wrapper.like(TemplateEntity::getName, templateDTO.getName())
+            .like(TemplateEntity::getId, templateDTO.getId())
             .orderByDesc(TemplateEntity::getCreateTime);
-     templateService.page(page, wrapper);
+    templateService.page(page, wrapper);
 
     return R.success(page);
   }
 
-  // 通道管理中的关联模板页面
+  /**
+   * 通道管理中的关联模板页面
+   */
   @GetMapping("customPage")
   @ApiOperation("关联模板页面")
-  @ApiImplicitParams({
-          @ApiImplicitParam(name = "current", value = "当前页码，从1开始", paramType = "query", required = true, dataType = "int"),
-          @ApiImplicitParam(name = "size", value = "每页显示记录数", paramType = "query", required = true, dataType = "int"),
-          @ApiImplicitParam(name = "排序字段", value = "排序字段", paramType = "query", dataType = "String"),
-          @ApiImplicitParam(name = "排序方式", value = "排序方式，可选值(asc、desc)", paramType = "query", dataType = "String"),
-          @ApiImplicitParam(name = "startCreateTime", value = "开始时间（yyyy-MM-dd HH:mm:ss）", paramType = "query", dataType = "String"),
-          @ApiImplicitParam(name = "endCreateTime", value = "结束时间（yyyy-MM-dd HH:mm:ss）", paramType = "query", dataType = "String")
-  })
-  public R customPage(TemplateDTO templateDTO){
+  public R customPage(TemplateDTO templateDTO) {
     Page<TemplateDTO> page = getPage();
-    Map<String,String> params = new HashMap<String,String>();
+    Map<String, String> params = new HashMap<String, String>();
     // 连表查
-    templateService.customPage(page,params);
+    templateService.customPage(page, params);
 
     return R.success(page);
   }
 
-  //
+  /**
+   * 通过id获取数据
+   *
+   * @param id
+   * @return
+   */
   @GetMapping("{id}")
   @ApiOperation("通过id获取数据")
-  public R<TemplateEntity> id(@PathVariable("id")String id){
+  public R<TemplateEntity> id(@PathVariable("id") String id) {
     TemplateEntity entity = templateService.getById(id);
     return R.success(entity);
   }
@@ -94,7 +93,7 @@ public class TemplateController extends BaseController {
   // 添加模板
   @PostMapping
   @ApiOperation("添加模板")
-  @DefaultParams  // 用AOP统一添加 修改者，修改时间
+  @PreAuthorize("hasAuthority('all')")
   public R<String> addTemplate(@RequestBody TemplateDTO templateDTO) {
 
     if (templateService.getByName(templateDTO.getName()) != null) {
@@ -111,7 +110,7 @@ public class TemplateController extends BaseController {
   // 修改模板
   @PutMapping
   @ApiOperation("修改模板")
-  @DefaultParams  // 用AOP统一添加 修改者，修改时间
+  @PreAuthorize("hasAuthority('all')")
   public R<String> editTemplate(@RequestBody TemplateDTO templateDTO) {
 
     templateService.updateById(templateDTO);
@@ -122,6 +121,7 @@ public class TemplateController extends BaseController {
   // 删除模板
   @DeleteMapping
   @ApiOperation("删除模板")
+  @PreAuthorize("hasAuthority('all')")
   public R deleteTemplate(@RequestBody List<String> ids) {
     // 判断是否被使用，查询发送日志表
     List<String> codes = new ArrayList<>();

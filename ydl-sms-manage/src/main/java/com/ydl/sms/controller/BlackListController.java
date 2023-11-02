@@ -15,6 +15,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
@@ -77,6 +78,7 @@ public class BlackListController extends BaseController {
     @PostMapping
     @ApiOperation("保存")
     @DefaultParams
+    @PreAuthorize("hasAuthority('all')")
     public R save(@RequestBody BlackListEntity entity) {
 
         blackListService.save(entity);
@@ -89,6 +91,7 @@ public class BlackListController extends BaseController {
     @PutMapping
     @ApiOperation("修改")
     @DefaultParams
+    @PreAuthorize("hasAuthority('all')")
     public R update(@RequestBody BlackListEntity entity) {
 
         blackListService.updateById(entity);
@@ -100,6 +103,7 @@ public class BlackListController extends BaseController {
 
     @DeleteMapping
     @ApiOperation("删除")
+    @PreAuthorize("hasAuthority('all')")
     public R delete(@RequestBody List<String> ids) {
 
         blackListService.removeByIds(ids);
@@ -111,6 +115,7 @@ public class BlackListController extends BaseController {
 
     @PostMapping("upload")
     @ApiOperation("导入")
+    @PreAuthorize("hasAuthority('all')")
     public R<? extends Object> upload(@RequestParam(value = "file") MultipartFile file) {
         if (file.isEmpty()) {
             return fail(BASE_VALID_PARAM.build("导入内容为空"));
@@ -123,6 +128,7 @@ public class BlackListController extends BaseController {
 
     @GetMapping("export")
     @ApiOperation("导出")
+    @PreAuthorize("hasAuthority('all')")
     public void export(@ApiIgnore @RequestParam Map<String, Object> params, HttpServletResponse response) throws Exception {
 
     }

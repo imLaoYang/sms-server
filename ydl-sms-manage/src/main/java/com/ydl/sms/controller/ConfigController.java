@@ -6,7 +6,6 @@ import com.ydl.base.BaseController;
 import com.ydl.base.R;
 import com.ydl.database.mybatis.conditions.Wraps;
 import com.ydl.database.mybatis.conditions.query.LbqWrapper;
-import com.ydl.sms.annotation.DefaultParams;
 import com.ydl.sms.dto.ConfigDTO;
 import com.ydl.sms.dto.ConfigUpdateOtherDTO;
 import com.ydl.sms.dto.SignatureDTO;
@@ -20,6 +19,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -67,7 +67,7 @@ public class ConfigController extends BaseController {
   // 添加
   @PostMapping
   @ApiOperation("添加通道")
-  @DefaultParams // aop 默认添加创建人
+  @PreAuthorize("hasAuthority('all')")
   public R<String> addConfig(@RequestBody ConfigDTO configDTO) {
     // 判断名称是否存在
     ConfigEntity entity = configService.getByName(configDTO.getName());
@@ -83,7 +83,7 @@ public class ConfigController extends BaseController {
   // 修改
   @PutMapping
   @ApiOperation("修改通道")
-  @DefaultParams // aop 默认添加修改人
+  @PreAuthorize("hasAuthority('all')")
   public R<String> editConfig(@RequestBody ConfigDTO configDTO) {
     configService.updateById(configDTO);
 
@@ -100,6 +100,7 @@ public class ConfigController extends BaseController {
   // 删除
   @DeleteMapping
   @ApiOperation("删除通道")
+  @PreAuthorize("hasAuthority('all')")
   public R deleteConfig(@RequestBody List<String> ids) {
     // 判断是否被使用
 
@@ -111,6 +112,7 @@ public class ConfigController extends BaseController {
   // 排序
   @PostMapping("level")
   @ApiOperation("排序")
+  @PreAuthorize("hasAuthority('all')")
   public R postConfigLevel(@RequestBody List<String> ids) {
 
     for (int i = 0; i < ids.size(); i++) {
@@ -162,6 +164,7 @@ public class ConfigController extends BaseController {
   // 修改其他配置接口
   @PutMapping("other")
   @ApiOperation("修改其他配置接口")
+  @PreAuthorize("hasAuthority('all')")
   public R<String> editConfigOther(@RequestBody ConfigUpdateOtherDTO dto) {
     if (org.apache.commons.lang3.StringUtils.isNotBlank(dto.getSignatureId())) {
       LambdaUpdateWrapper<ConfigSignatureEntity> wrapper = new LambdaUpdateWrapper<>();

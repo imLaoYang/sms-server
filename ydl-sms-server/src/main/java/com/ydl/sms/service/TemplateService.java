@@ -6,7 +6,7 @@ import com.ydl.sms.entity.TemplateEntity;
 /**
  * 模板表
  *
- * @author IT李老师
+ *  
  *
  */
 public interface TemplateService extends IService<TemplateEntity> {

@@ -27,12 +27,7 @@
         <!-- 开发环境 -->
         <profile>
             <id>dev</id>
-            <activation>
-                <!--默认激活配置-->
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <properties>
-                <!--当前环境-->
                 <pom.profile.name>dev</pom.profile.name>
                 <!--Nacos配置中心地址-->
                 <pom.nacos.ip>127.0.0.1</pom.nacos.ip>
@@ -41,6 +36,25 @@
                 <pom.nacos.namespace>8252eef4-b710-4b56-a869-48ff93cffe85</pom.nacos.namespace>
             </properties>
         </profile>
+
+        <!-- 开发环境2 -->
+        <profile>
+            <id>dev2</id>
+            <activation>
+                <!--默认激活配置-->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <!--当前环境-->
+                <pom.profile.name>dev</pom.profile.name>
+                <!--Nacos配置中心地址-->
+                <pom.nacos.ip>192.168.214.137</pom.nacos.ip>
+                <pom.nacos.port>8848</pom.nacos.port>
+                <!--Nacos配置中心命名空间,用于支持多环境.这里必须使用ID，不能使用名称,默认为空-->
+                <pom.nacos.namespace>3e968b5e-cfa2-443c-847e-66df7da17a67</pom.nacos.namespace>
+            </properties>
+        </profile>
+
         <!-- 测试环境 -->
         <profile>
             <id>test</id>
@@ -256,6 +270,9 @@
 <!--                <version>${easy-captcha.version}</version>-->
 <!--            </dependency>-->
         </dependencies>
+
+
+
     </dependencyManagement>
 
     <dependencies>

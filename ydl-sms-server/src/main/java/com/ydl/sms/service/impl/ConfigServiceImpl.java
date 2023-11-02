@@ -24,7 +24,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * 通道配置表
  *
- * @author IT李老师
+ *  
  *
  */
 @Service

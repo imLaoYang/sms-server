@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 /**
  * 接收日志表
  *
- * @author IT李老师
+ *
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

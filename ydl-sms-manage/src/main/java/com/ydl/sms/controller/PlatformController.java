@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ydl.base.BaseController;
 import com.ydl.base.R;
 import com.ydl.database.mybatis.conditions.query.LbqWrapper;
-import com.ydl.sms.annotation.DefaultParams;
 import com.ydl.sms.dto.PlatformDTO;
 import com.ydl.sms.entity.PlatformEntity;
 import com.ydl.sms.entity.base.BaseEntity;
@@ -16,6 +15,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -68,7 +68,7 @@ public class PlatformController extends BaseController {
   // 插入
   @PostMapping
   @ApiOperation("插入")
-  @DeleteMapping //aop
+  @PreAuthorize("hasAuthority('all')")
   public R addPlatform(@RequestBody PlatformDTO platformDTO) {
     // 判断名称是否存在
     PlatformEntity entity = platformService.getByName(platformDTO.getName());
@@ -93,6 +93,7 @@ public class PlatformController extends BaseController {
    */
   @DeleteMapping
   @ApiOperation("删除")
+  @PreAuthorize("hasAuthority('all')")
   public R deletePlatform(@RequestBody List<String> ids) {
     platformService.removeByIds(ids);
     return R.success("删除成功");
@@ -101,7 +102,7 @@ public class PlatformController extends BaseController {
   // 修改
   @PutMapping
   @ApiOperation("修改")
-  @DefaultParams //aop
+  @PreAuthorize("hasAuthority('all')")
   public R editPlatform(@RequestBody PlatformDTO platformDTO) {
 
     platformService.updateById(platformDTO);
